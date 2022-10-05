@@ -1,4 +1,4 @@
-//const userDao = require("../models/userDao");
+const userDao = require("../models/userDao");
 
 const test = async () => {
   const error = new Error("테스트");

@@ -9,11 +9,4 @@ const myDataSource = new DataSource({
   database: process.env.TYPEORM_DATABASE,
 });
 
-myDataSource
-  .initialize()
-  .then(() => {
-    console.log("userDao has been initialized!");
-  })
-  .catch(() => {
-    console.log("Database initiate fail");
-  });
+module.exports = myDataSource;
