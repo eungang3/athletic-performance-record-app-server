@@ -43,4 +43,22 @@ const readUserById = async (id) => {
   }
 };
 
-module.exports = { updateUsersForDelete, readUserById };
+/**
+ * 기능: 회원 정보 등록
+ */
+ const createUser = async (userDao) => {
+  try {
+    await myDataSource.query(
+      `
+      INSERT INTO users (name, birth, height, phone_number)
+      VALUES("${userDao.name}", "${userDao.birth}", "${userDao.height}","${userDao.phoneNumber}")
+      `
+    );
+  } catch (err) {
+    const error = new Error(err.message);
+    error.statusCode = 500;
+    throw error;
+  }
+};
+
+module.exports = { updateUsersForDelete, readUserById, createUser };

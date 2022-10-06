@@ -5,8 +5,8 @@ CREATE TABLE datas(
     type_id INT NOT NULL,
     figure INT NOT NULL,
     FOREIGN KEY (record_id) REFERENCES records(id),
-    FOREIGN KEY (type_id) REFERENCES types(id)
-    ON DELETE CASCADE
+    FOREIGN KEY (type_id) REFERENCES types(id) ON DELETE CASCADE,
+    CONSTRAINT PK_datas_record_id_type_id UNIQUE KEY (record_id, type_id)
 );
 
 -- migrate:down
