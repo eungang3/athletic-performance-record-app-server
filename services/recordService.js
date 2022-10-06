@@ -56,7 +56,7 @@ const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
       .length === Object.keys(TYPE).length;
 
   if (hasShoulderType && !isValidShoulderType) {
-    const error = new Error("SHOULDER_TYPE_ERROR");
+    const error = new Error("어깨굴곡 또는 어깨신전이 입력되지 않았습니다.");
     error.statusCode = 400;
     throw error;
   }
@@ -64,7 +64,7 @@ const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
   try {
     return await recordDao.createRecordData(userId, weight, measuredAt, typeId, figure);
   } catch (err) {
-    const error = new Error("The entered figure is out of the allowed range.");
+    const error = new Error("입력한 수치가 허용 범위를 벗어났습니다.");
     error.statusCode = 400;
     throw error;
   }
