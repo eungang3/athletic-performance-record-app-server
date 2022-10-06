@@ -39,8 +39,29 @@ const userUpdate = async (id, name, birth, phoneNumber, tall) => {
   return userUpdate
 }
 
+//회원정보 등록하기
+const registerUser = async (userDto) => {
+  const birthForm = /^(19[0-9][0-9]|20\d{2})-?(0[0-9]|1[0-2])-?(0[1-9]|[1-2][0-9]|3[0-1])$/;
+  const phoneNumberForm = /^010-?([0-9]{4})-?([0-9]{4})$/;
+
+  if (!birthForm.test(userDto.birth)) {
+    const error = new Error('생년월일 형식이 올바르지 않습니다.');
+    error.statusCode = 409
+    throw error
+  }
+
+  if (!phoneNumberForm.test(userDto.phoneNumber)) {
+    const error = new Error('전화번호 형식이 올바르지 않습니다.');
+    error.statusCode = 409
+    throw error
+  }
+
+  await userDao.createUser(userDto);
+};
+
 module.exports = {
   userInfo,
   userUpdate,
   deleteUser,
+  registerUser,
 };
