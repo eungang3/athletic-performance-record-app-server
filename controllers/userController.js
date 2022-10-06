@@ -16,7 +16,7 @@ const userInfo = async (req, res) => {
 
 //특정 회원정보 수정하기
 const userUpdate = async (req, res) => {
-  const { id, name, birth, phoneNumber, tall } = req.query;
+  const { id, name, birth, phoneNumber, tall } = req.body;
   const userUpdate = await userService.userUpdate(id, name, birth, phoneNumber, tall);
   console.log("END userUpdateController");
   res.status(200).json({ message: "정보 수정 완료" });
