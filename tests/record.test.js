@@ -13,6 +13,9 @@ describe("Get Record", () => {
     await myDataSource.query(
       "INSERT INTO `users` (`id`,`name`,`birth`,`phone_number`,`height`) VALUES (1,'김고양','2000-01-01','01012341234','220');"
     );
+    await myDataSource.query(
+      "INSERT INTO `users` (`id`,`name`,`birth`,`phone_number`,`height`) VALUES (2,'김야옹','2002-02-02','01011112222','100');"
+    );
     await myDataSource.query("INSERT INTO `types` (`id`,`name`) VALUES (1,'손목 가동성');");
     await myDataSource.query("INSERT INTO `types` (`id`,`name`) VALUES (2,'어깨 굴곡');");
     await myDataSource.query("INSERT INTO `types` (`id`,`name`) VALUES (3,'어깨 신전');");
@@ -58,7 +61,19 @@ describe("Get Record", () => {
     await request(app).get("/records/users/1").expect(200);
   });
 
+  test("FAILED: non record", async () => {
+    await request(app).get("/records/users/2").expect(404);
+  });
+
+  test("FAILED: non user", async () => {
+    await request(app).get("/records/users/3").expect(404);
+  });
+
   test("SUCCESS: get record", async () => {
     await request(app).get("/records/1").expect(200);
+  });
+
+  test("FAILED: non record", async () => {
+    await request(app).get("/records/5").expect(404);
   });
 });

@@ -1,8 +1,10 @@
 const myDataSource = require("./db.config");
 
-//회원 목록과 정보 or 특정 회원 정보 가져오기
+/**
+ * 기능: 회원 목록과 정보 or 특정 회원 정보 가져오기
+ */
 const userInfo = async (info) => {
-  console.log("START userInfoDao")
+  console.log("START userInfoDao");
   const userInfo = await myDataSource.query(
     `
       SELECT 
@@ -16,11 +18,13 @@ const userInfo = async (info) => {
                       OR(users.phone_number = ?))
     `,
     [info, info, info, info]
-  )
-  return userInfo
+  );
+  return userInfo;
 };
 
-// 특정 회원 정보 수정하기
+/**
+ * 기능: 특정 회원 정보 수정하기
+ */
 const userUpdate = async (id, name, birth, phone_number, height) => {
   if (name != undefined) {
     const userUpdate = await myDataSource.query(
@@ -30,7 +34,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
       WHERE id = ?
     `,
       [name, id]
-    )
+    );
   }
   if (birth != undefined) {
     const userUpdate = await myDataSource.query(
@@ -40,7 +44,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
       WHERE id = ?
     `,
       [birth, id]
-    )
+    );
   }
   if (phone_number != undefined) {
     const userUpdate = await myDataSource.query(
@@ -50,7 +54,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
       WHERE id = ?
     `,
       [phone_number, id]
-    )
+    );
   }
   if (height != undefined) {
     const userUpdate = await myDataSource.query(
@@ -60,10 +64,10 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
       WHERE id = ?
     `,
       [height, id]
-    )
+    );
   }
-  return userUpdate
-}
+  return userUpdate;
+};
 
 /**
  * 기능: 유저 테이블 deleted_at 현재시간으로 업데이트,
@@ -107,17 +111,11 @@ const readUserById = async (id) => {
     throw error;
   }
 };
-module.exports = {
-  userInfo,
-  userUpdate,
-  updateUsersForDelete, 
-  readUserById
-};
 
 /**
  * 기능: 회원 정보 등록
  */
- const createUser = async (userDao) => {
+const createUser = async (userDao) => {
   try {
     await myDataSource.query(
       `
@@ -132,5 +130,12 @@ module.exports = {
   }
 };
 
-module.exports = { updateUsersForDelete, readUserById, createUser };
-
+module.exports = {
+  userInfo,
+  userUpdate,
+  updateUsersForDelete,
+  readUserById,
+  updateUsersForDelete,
+  readUserById,
+  createUser,
+};
