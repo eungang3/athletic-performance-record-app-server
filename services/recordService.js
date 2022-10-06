@@ -1,32 +1,32 @@
 const recordDao = require("../models/recordDao");
 
 const getUserRecord = async (userId) => {
-  const getRecordByUser = await recordDao.getUserRecord(userId);
-  for (const obj of getRecordByUser) {
+  const record = await recordDao.getUserRecord(userId);
+  for (const obj of record) {
     obj.datas = JSON.parse(obj.datas);
   }
 
-  if (getRecordByUser.length === 0) {
+  if (record.length === 0) {
     const error = new Error("측정기록이 없습니다.");
     error.statusCode = 404;
     throw error;
   } else {
-    return getRecordByUser;
+    return record;
   }
 };
 
 const getRecord = async (recordId) => {
-  const getRecordById = await recordDao.getRecord(recordId);
-  for (const obj of getRecordById) {
+  const record = await recordDao.getRecord(recordId);
+  for (const obj of record) {
     obj.datas = JSON.parse(obj.datas);
   }
 
-  if (getRecordById.length === 0) {
+  if (record.length === 0) {
     const error = new Error("측정기록이 없습니다.");
     error.statusCode = 404;
     throw error;
   } else {
-    return getRecordById;
+    return record;
   }
 };
 

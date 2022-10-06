@@ -2,14 +2,14 @@ const recordService = require("../services/recordService");
 
 const getUserRecord = async (req, res) => {
   const userId = req.params["userId"];
-  const getRecordByUser = await recordService.getUserRecord(userId);
-  res.status(200).json({ data: getRecordByUser });
+  const record = await recordService.getUserRecord(userId);
+  res.status(200).json({ data: record });
 };
 
 const getRecord = async (req, res) => {
   const recordId = req.params["recordId"];
-  const getRecordById = await recordService.getRecord(recordId);
-  res.status(200).json({ data: getRecordById });
+  const record = await recordService.getRecord(recordId);
+  res.status(200).json({ data: record });
 };
 
 const deleteRecord = async (req, res) => {
