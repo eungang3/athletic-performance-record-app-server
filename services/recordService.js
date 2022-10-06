@@ -57,11 +57,17 @@ const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
 
   if (hasShoulderType && !isValidShoulderType) {
     const error = new Error("SHOULDER_TYPE_ERROR");
-    error.code = 400;
+    error.statusCode = 400;
     throw error;
   }
 
-  return await recordDao.createRecordData(userId, weight, measuredAt, typeId, figure);
+  try {
+    return await recordDao.createRecordData(userId, weight, measuredAt, typeId, figure);
+  } catch (err) {
+    const error = new Error("The entered figure is out of the allowed range.");
+    error.statusCode = 400;
+    throw error;
+  }
 };
 
 module.exports = { getUserRecord, getRecord, deleteRecord, createRecordData };
