@@ -10,7 +10,6 @@ const deleteUser = async (req, res, next) => {
 const userInfo = async (req, res) => {
   const { info } = req.query;
   const userInfo = await userService.userInfo(info);
-  console.log("END userInfoController");
   res.status(200).json({ userInfo: userInfo });
 };
 
@@ -18,7 +17,6 @@ const userInfo = async (req, res) => {
 const userUpdate = async (req, res) => {
   const { id, name, birth, phoneNumber, height } = req.body;
   const userUpdate = await userService.userUpdate(id, name, birth, phoneNumber, height);
-  console.log("END userUpdateController");
   res.status(200).json({ message: "정보 수정 완료" });
 };
 
