@@ -1,5 +1,6 @@
 const recordDao = require("../models/recordDao");
 
+//유저 측정 기록 조회
 const getUserRecord = async (userId) => {
   const record = await recordDao.getUserRecord(userId);
   for (const obj of record) {
@@ -15,6 +16,7 @@ const getUserRecord = async (userId) => {
   }
 };
 
+//측정 기록 조회
 const getRecord = async (recordId) => {
   const record = await recordDao.getRecord(recordId);
   for (const obj of record) {
@@ -30,6 +32,7 @@ const getRecord = async (recordId) => {
   }
 };
 
+//측정 기록 삭제
 const deleteRecord = async (recordId) => {
   const record = await recordDao.deleteRecord(recordId);
   if (record.affectedRows) {
@@ -41,6 +44,7 @@ const deleteRecord = async (recordId) => {
   }
 };
 
+//유저 측정 기록 생성
 const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
   const TYPE = {
     SHOULDER_EXTENSION: 3,
@@ -70,4 +74,9 @@ const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
   }
 };
 
-module.exports = { getUserRecord, getRecord, deleteRecord, createRecordData };
+module.exports = {
+  getUserRecord,
+  getRecord,
+  deleteRecord,
+  createRecordData,
+};
