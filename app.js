@@ -7,8 +7,6 @@ const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler");
 const myDataSource = require("./models/db.config");
 
-const app = express();
-
 // DB 연결
 myDataSource
   .initialize()
@@ -19,12 +17,16 @@ myDataSource
     console.log(err);
   });
 
-app.use(express.json());
-app.use(morgan("dev"));
-app.use(cors());
-app.use(router);
+const createApp = () => {
+  const app = express();
+  app.use(express.json());
+  app.use(morgan("dev"));
+  app.use(cors());
+  app.use(router);
+  // 에러 처리 미들웨어
+  app.use(errorHandler);
 
-// 에러 처리 미들웨어
-app.use(errorHandler);
+  return app;
+};
 
-module.exports = app;
+module.exports = { createApp };
