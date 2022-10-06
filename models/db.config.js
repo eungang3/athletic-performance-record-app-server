@@ -17,3 +17,5 @@ myDataSource
     .catch(() => {
         console.log("Database initiate fail");
     });
+
+module.exports = myDataSource;
