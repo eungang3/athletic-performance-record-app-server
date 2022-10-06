@@ -8,6 +8,6 @@ router.get("/ping", (req, res) => {
 
 const recordRouter = require("./recordRouter");
 router.use("/records", recordRouter);
-router.use("/user", userRouter);
+router.use("/users", userRouter);
 
 module.exports = router;

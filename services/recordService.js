@@ -1,5 +1,35 @@
 const recordDao = require("../models/recordDao");
 
+const getUserRecord = async (userId) => {
+  const getRecordByUser = await recordDao.getUserRecord(userId);
+  for (const obj of getRecordByUser) {
+    obj.datas = JSON.parse(obj.datas);
+  }
+
+  if (getRecordByUser.length === 0) {
+    const error = new Error("측정기록이 없습니다.");
+    error.statusCode = 404;
+    throw error;
+  } else {
+    return getRecordByUser;
+  }
+};
+
+const getRecord = async (recordId) => {
+  const getRecordById = await recordDao.getRecord(recordId);
+  for (const obj of getRecordById) {
+    obj.datas = JSON.parse(obj.datas);
+  }
+
+  if (getRecordById.length === 0) {
+    const error = new Error("측정기록이 없습니다.");
+    error.statusCode = 404;
+    throw error;
+  } else {
+    return getRecordById;
+  }
+};
+
 const deleteRecord = async (recordId) => {
   const record = await recordDao.deleteRecord(recordId);
   if (record.affectedRows) {
@@ -34,7 +64,4 @@ const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
   return await recordDao.createRecordData(userId, weight, measuredAt, typeId, figure);
 };
 
-module.exports = {
-  deleteRecord,
-  createRecordData,
-};
+module.exports = { getUserRecord, getRecord, deleteRecord, createRecordData };

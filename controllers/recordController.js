@@ -1,5 +1,17 @@
 const recordService = require("../services/recordService");
 
+const getUserRecord = async (req, res) => {
+  const userId = req.params["userId"];
+  const getRecordByUser = await recordService.getUserRecord(userId);
+  res.status(200).json({ data: getRecordByUser });
+};
+
+const getRecord = async (req, res) => {
+  const recordId = req.params["recordId"];
+  const getRecordById = await recordService.getRecord(recordId);
+  res.status(200).json({ data: getRecordById });
+};
+
 const deleteRecord = async (req, res) => {
   const recordId = req.params["recordId"];
   await recordService.deleteRecord(recordId);
@@ -19,7 +31,4 @@ const createRecordData = async (req, res) => {
   }
 };
 
-module.exports = {
-  deleteRecord,
-  createRecordData,
-};
+module.exports = { getUserRecord, getRecord, deleteRecord, createRecordData };
