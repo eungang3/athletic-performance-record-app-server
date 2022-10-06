@@ -18,7 +18,10 @@ describe("Delete Record", () => {
       });
 
     await myDataSource.query(
-      "INSERT INTO `records` (`user_id`,`weight`,`measured_at`) VALUES (1,'100.5','2022-10-04');"
+      "INSERT INTO `users` (`id`,`name`,`birth`,`phone_number`,`height`) VALUES (1,'김고양','2000-01-01','01012341234','220');"
+    );
+    await myDataSource.query(
+      "INSERT INTO `records` (`id`,`user_id`,`weight`,`measured_at`) VALUES (1,1,'100.5','2022-10-04');"
     );
     await myDataSource.query("INSERT INTO `types` (`name`) VALUES ('손목 가동성');");
     await myDataSource.query("INSERT INTO `types` (`name`) VALUES ('어깨 굴곡');");
@@ -51,6 +54,9 @@ describe("Delete Record", () => {
     await myDataSource.query(`SET FOREIGN_KEY_CHECKS = 1;`);
     await myDataSource.query(`SET FOREIGN_KEY_CHECKS = 0;`);
     await myDataSource.query(`TRUNCATE records;`);
+    await myDataSource.query(`SET FOREIGN_KEY_CHECKS = 1;`);
+    await myDataSource.query(`SET FOREIGN_KEY_CHECKS = 0;`);
+    await myDataSource.query(`TRUNCATE users;`);
     await myDataSource.query(`SET FOREIGN_KEY_CHECKS = 1;`);
     await myDataSource.destroy();
   });

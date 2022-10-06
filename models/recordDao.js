@@ -1,5 +1,8 @@
 const myDataSource = require("./db.config");
 
+/**
+ * 기능: userId로 records, Datas 조회
+ */
 const getUserRecord = async (userId) => {
   try {
     const result = await myDataSource.query(
@@ -37,6 +40,9 @@ const getUserRecord = async (userId) => {
   }
 };
 
+/**
+ * 기능: recordId로 users, records, Datas 조회
+ */
 const getRecord = async (recordId) => {
   try {
     const result = await myDataSource.query(
@@ -79,6 +85,9 @@ const getRecord = async (recordId) => {
   }
 };
 
+/**
+ * 기능: 측정 기록 삭제
+ */
 const deleteRecord = async (recordId) => {
   return await myDataSource.query(
     `DELETE FROM records
@@ -86,6 +95,9 @@ const deleteRecord = async (recordId) => {
   );
 };
 
+/**
+ * 기능: 측정 기록 등록
+ */
 const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
   await myDataSource.query(
     `INSERT INTO records (user_id,weight,measured_at)
@@ -104,4 +116,9 @@ const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
   return datas;
 };
 
-module.exports = { getUserRecord, getRecord, deleteRecord, createRecordData };
+module.exports = {
+  getUserRecord,
+  getRecord,
+  deleteRecord,
+  createRecordData,
+};

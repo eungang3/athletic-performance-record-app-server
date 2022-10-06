@@ -1,7 +1,5 @@
-
 const userDao = require("../models/userDao");
 const maskingFunc = require("../utils/maskingFunc");
-
 
 //회원 삭제하기
 const deleteUser = async (id) => {
@@ -27,17 +25,17 @@ const deleteUser = async (id) => {
 //회원 목록과 정보 or 특정 회원 정보 가져오기
 const userInfo = async (info) => {
   if (info == undefined) {
-    info = "null"
+    info = "null";
   }
-  const userInfo = await userDao.userInfo(info)
-  return userInfo
-}
+  const userInfo = await userDao.userInfo(info);
+  return userInfo;
+};
 
 //특정 회원정보 수정하기
 const userUpdate = async (id, name, birth, phoneNumber, tall) => {
-  const userUpdate = await userDao.userUpdate(id, name, birth, phoneNumber, tall)
-  return userUpdate
-}
+  const userUpdate = await userDao.userUpdate(id, name, birth, phoneNumber, tall);
+  return userUpdate;
+};
 
 //회원정보 등록하기
 const registerUser = async (userDto) => {
@@ -45,15 +43,15 @@ const registerUser = async (userDto) => {
   const phoneNumberForm = /^010-?([0-9]{4})-?([0-9]{4})$/;
 
   if (!birthForm.test(userDto.birth)) {
-    const error = new Error('생년월일 형식이 올바르지 않습니다.');
-    error.statusCode = 409
-    throw error
+    const error = new Error("생년월일 형식이 올바르지 않습니다.");
+    error.statusCode = 409;
+    throw error;
   }
 
   if (!phoneNumberForm.test(userDto.phoneNumber)) {
-    const error = new Error('전화번호 형식이 올바르지 않습니다.');
-    error.statusCode = 409
-    throw error
+    const error = new Error("전화번호 형식이 올바르지 않습니다.");
+    error.statusCode = 409;
+    throw error;
   }
 
   await userDao.createUser(userDto);
