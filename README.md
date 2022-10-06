@@ -65,7 +65,7 @@
 
 ## 📌 API DOCS
 
-**[🔗 API DOCS](https://www.notion.so/wecode/3-api-c44061ab32ef43999b74e48e203c81f4)**
+**[🔗 API DOCS](https://charmed-skirt-18c.notion.site/3-api-da65b8473dee41daacea0ae879adc958)**
 
 <br/>
 
