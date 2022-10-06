@@ -23,7 +23,7 @@ const createRecordData = async (req, res) => {
   const { weight, measuredAt, typeId, figure } = req.body;
 
   await recordService.createRecordData(userId, weight, measuredAt, typeId, figure);
-  res.status(201).json({ message: "RECORD_CREATED" });
+  res.status(201).json({ message: "측정 기록,데이터 생성 성공" });
 };
 
 module.exports = { getUserRecord, getRecord, deleteRecord, createRecordData };
