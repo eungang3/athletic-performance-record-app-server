@@ -17,13 +17,11 @@ const userInfo = async (info) => {
     `,
     [info, info, info, info]
   )
-  console.log("END userInfoDao")
   return userInfo
 };
 
 // 특정 회원 정보 수정하기
 const userUpdate = async (id, name, birth, phone_number, height) => {
-  console.log("START userUpdateDao")
   if (name != undefined) {
     const userUpdate = await myDataSource.query(
       `
@@ -33,7 +31,6 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
     `,
       [name, id]
     )
-    console.log("END userNameUpdate")
   }
   if (birth != undefined) {
     const userUpdate = await myDataSource.query(
@@ -44,7 +41,6 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
     `,
       [birth, id]
     )
-    console.log("END userBirthUpdate")
   }
   if (phone_number != undefined) {
     const userUpdate = await myDataSource.query(
@@ -55,7 +51,6 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
     `,
       [phone_number, id]
     )
-    console.log("END userphone_numberUpdate")
   }
   if (height != undefined) {
     const userUpdate = await myDataSource.query(
@@ -66,9 +61,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
     `,
       [height, id]
     )
-    console.log("END userheightUpdate")
   }
-  console.log("END userUpdate")
   return userUpdate
 }
 
