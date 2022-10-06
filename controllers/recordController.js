@@ -22,13 +22,8 @@ const createRecordData = async (req, res) => {
   const { userId } = req.params;
   const { weight, measuredAt, typeId, figure } = req.body;
 
-  try {
-    await recordService.createRecordData(userId, weight, measuredAt, typeId, figure);
-    res.status(201).json({ message: "RECORD_CREATED" });
-  } catch (err) {
-    console.log(err);
-    res.status(400).json({ message: "The entered figure is out of the allowed range." });
-  }
+  await recordService.createRecordData(userId, weight, measuredAt, typeId, figure);
+  res.status(201).json({ message: "RECORD_CREATED" });
 };
 
 module.exports = { getUserRecord, getRecord, deleteRecord, createRecordData };
