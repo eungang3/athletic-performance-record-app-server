@@ -44,6 +44,10 @@
 
 4. 측정 기록 삭제하기
 
+- 측정 기록 id를 패스 파라미터로 받아 해당 기록을 삭제합니다.
+- 측정 데이터 테이블(datas)은 측정 기록 테이블(records)을 record_id라는 외래키 칼럼으로 참조합니다. record_id에는 ON DELETE CASCADE 조건이 걸려있기 때문에, 측정 기록 테이블(records)의 데이터를 삭제하면 연관된 측정 데이터도 모두 자동으로 삭제됩니다.
+- ON DELETE CASCADE가 걸린 경우 mysql에서 자동으로 TRANSACTION을 사용하여 처리하므로 따로 트랜잭션을 명시하지는 않았습니다.
+
 <br/>
 
 ## 📌 DB Modeling
