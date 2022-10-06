@@ -6,4 +6,9 @@ const auth = require("../middlewares/auth");
 router.get("/user/:userId", auth.checkUser, recordController.getUserRecord);
 router.get("/:recordId", recordController.getRecord);
 router.delete("/:recordId", recordController.deleteRecord);
+
+router.post("/:userId", recordController.createRecordData);
+
+module.exports = router;
+
 module.exports = router;
