@@ -10,15 +10,13 @@ const deleteUser = async (req, res, next) => {
 const userInfo = async (req, res) => {
   const { info } = req.query;
   const userInfo = await userService.userInfo(info);
-  console.log("END userInfoController");
   res.status(200).json({ userInfo: userInfo });
 };
 
 //특정 회원정보 수정하기
 const userUpdate = async (req, res) => {
-  const { id, name, birth, phoneNumber, tall } = req.body;
-  const userUpdate = await userService.userUpdate(id, name, birth, phoneNumber, tall);
-  console.log("END userUpdateController");
+  const { id, name, birth, phoneNumber, height } = req.body;
+  const userUpdate = await userService.userUpdate(id, name, birth, phoneNumber, height);
   res.status(200).json({ message: "정보 수정 완료" });
 };
 

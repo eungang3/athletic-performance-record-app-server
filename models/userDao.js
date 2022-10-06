@@ -10,7 +10,7 @@ const userInfo = async (info) => {
       SELECT 
         users.id, users.name, users.phone_number, users.height,
         DATE_FORMAT(users.birth,"%Y-%m-%d")as birth
-        FROM USERS
+        FROM users
       WHERE (users.deleted_at IS null)
             AND (((?="null")AND(id=id))
                       OR(users.id = ?)
@@ -29,7 +29,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
   if (name != undefined) {
     const userUpdate = await myDataSource.query(
       `
-      UPDATE USERS
+      UPDATE users
       SET name = ?, updated_at = now()
       WHERE id = ?
     `,
@@ -39,7 +39,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
   if (birth != undefined) {
     const userUpdate = await myDataSource.query(
       `
-      UPDATE USERS
+      UPDATE users
       SET birth = ?
       WHERE id = ?
     `,
@@ -49,7 +49,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
   if (phone_number != undefined) {
     const userUpdate = await myDataSource.query(
       `
-      UPDATE USERS
+      UPDATE users
       SET phone_number = ?
       WHERE id = ?
     `,
@@ -59,7 +59,7 @@ const userUpdate = async (id, name, birth, phone_number, height) => {
   if (height != undefined) {
     const userUpdate = await myDataSource.query(
       `
-      UPDATE USERS
+      UPDATE users
       SET height = ?
       WHERE id = ?
     `,

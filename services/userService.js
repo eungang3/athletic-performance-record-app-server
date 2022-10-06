@@ -32,8 +32,8 @@ const userInfo = async (info) => {
 };
 
 //특정 회원정보 수정하기
-const userUpdate = async (id, name, birth, phoneNumber, tall) => {
-  const userUpdate = await userDao.userUpdate(id, name, birth, phoneNumber, tall);
+const userUpdate = async (id, name, birth, phoneNumber, height) => {
+  const userUpdate = await userDao.userUpdate(id, name, birth, phoneNumber, height);
   return userUpdate;
 };
 
