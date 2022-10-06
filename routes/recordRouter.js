@@ -3,4 +3,9 @@ const router = express.Router();
 const recordController = require("../controllers/recordController");
 
 router.delete("/:recordId", recordController.deleteRecord);
+
+router.post("/:userId", recordController.createRecordData);
+
+module.exports = router;
+
 module.exports = router;

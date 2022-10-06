@@ -11,6 +11,30 @@ const deleteRecord = async (recordId) => {
   }
 };
 
+const createRecordData = async (userId, weight, measuredAt, typeId, figure) => {
+  const TYPE = {
+    SHOULDER_EXTENSION: 3,
+    SHOULDER_FLEXION: 2,
+  };
+
+  const hasShoulderType = typeId.some((type) =>
+    [TYPE.SHOULDER_EXTENSION, TYPE.SHOULDER_FLEXION].includes(type)
+  );
+
+  const isValidShoulderType =
+    typeId.filter((type) => type === TYPE.SHOULDER_EXTENSION || type === TYPE.SHOULDER_FLEXION)
+      .length === Object.keys(TYPE).length;
+
+  if (hasShoulderType && !isValidShoulderType) {
+    const error = new Error("SHOULDER_TYPE_ERROR");
+    error.code = 400;
+    throw error;
+  }
+
+  return await recordDao.createRecordData(userId, weight, measuredAt, typeId, figure);
+};
+
 module.exports = {
   deleteRecord,
+  createRecordData,
 };

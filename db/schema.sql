@@ -21,12 +21,37 @@ CREATE TABLE `datas` (
   `type_id` int NOT NULL,
   `figure` int NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `PK_datas_record_id_type_id` (`record_id`,`type_id`),
   KEY `type_id` (`type_id`),
-  KEY `datas_ibfk_1` (`record_id`),
   CONSTRAINT `datas_ibfk_1` FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE,
   CONSTRAINT `datas_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tr_bi_check_limitations` BEFORE INSERT ON `datas` FOR EACH ROW BEGIN
+  IF NOT EXISTS (
+    SELECT NULL
+    FROM types_limits
+    WHERE type_id = NEW.type_id
+      AND NEW.figure BETWEEN figure_from AND figure_till
+    ) THEN
+    SIGNAL SQLSTATE '45015'
+    SET message_text = 'The entered figure is out of the allowed range.' ;
+  END IF;
+  END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `records`
@@ -43,7 +68,7 @@ CREATE TABLE `records` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `records_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,25 +84,6 @@ CREATE TABLE `schema_migrations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `tests4`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tests4` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `record_id` int NOT NULL,
-  `type_id` int NOT NULL,
-  `figure` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `type_id` (`type_id`),
-  KEY `record_id` (`record_id`),
-  CONSTRAINT `tests4_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `tests4_ibfk_3` FOREIGN KEY (`record_id`) REFERENCES `records` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `types`
 --
 
@@ -85,9 +91,23 @@ CREATE TABLE `tests4` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `types` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `types_limits`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `types_limits` (
+  `type_id` int NOT NULL,
+  `figure_from` int DEFAULT NULL,
+  `figure_till` int DEFAULT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,16 +118,16 @@ CREATE TABLE `types` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(200) NOT NULL,
   `birth` date NOT NULL,
-  `phone_number` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone_number` varchar(200) NOT NULL,
   `height` double NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,5 +159,8 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20221004123638'),
   ('20221004123645'),
   ('20221004123651'),
-  ('20221005090134');
+  ('20221005090134'),
+  ('20221006092057'),
+  ('20221006092327'),
+  ('20221006092631');
 UNLOCK TABLES;
