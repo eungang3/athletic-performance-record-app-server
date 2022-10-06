@@ -1,14 +1,8 @@
 const userDao = require("../models/userDao");
 const maskingFunc = require("../utils/maskingFunc");
 
-const test = async () => {
-  const error = new Error("테스트");
-  error.statusCode = 500;
-  throw error;
-};
-
 //회원 삭제하기
-const daleteUser = async (id) => {
+const deleteUser = async (id) => {
   const seletedUser = await userDao.readUserById(id);
 
   if (seletedUser.length === 0) {
@@ -29,6 +23,5 @@ const daleteUser = async (id) => {
 };
 
 module.exports = {
-  daleteUser,
-  test,
+  deleteUser,
 };
