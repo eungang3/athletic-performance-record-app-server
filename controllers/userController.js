@@ -1,5 +1,10 @@
 const userService = require('../services/userService');
 
+const test = async (req, res, next) => {
+  await userService.test();
+  res.status(200).json({ message: "에러 핸들러 테스트" });
+};
+
 //회원 목록과 정보 or 특정 회원 정보 가져오기
 const userInfo = async (req, res) => {
   console.log('START userInfoController')
@@ -8,6 +13,7 @@ const userInfo = async (req, res) => {
   console.log('END userInfoController')
   res.status(200).json({userInfo : userInfo})
 }
+
 //특정 회원정보 수정하기
 const userUpdate = async (req, res) => {
   console.log('START userUpdateController')
@@ -17,8 +23,8 @@ const userUpdate = async (req, res) => {
   res.status(200).json({ message: '정보 수정 완료' })
 }
 
-
 module.exports = {
+  test,
   userInfo,
   userUpdate,
 };

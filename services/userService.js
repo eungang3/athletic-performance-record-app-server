@@ -1,5 +1,11 @@
 const userDao = require('../models/userDao');
 
+const test = async () => {
+  const error = new Error("테스트");
+  error.statusCode = 500;
+  throw error;
+};
+
 //회원 목록과 정보 or 특정 회원 정보 가져오기
 const userInfo = async (info) => {
   console.log('START userInfoService')
@@ -19,8 +25,8 @@ const userUpdate = async (id, name, birth, phoneNumber, tall) => {
   return userUpdate
 }
 
-
 module.exports = {
+  test,
   userInfo,
   userUpdate,
 };
