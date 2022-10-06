@@ -6,7 +6,7 @@ const checkUser = async (req, res, next) => {
     const checkUserById = await authDao.getUserById(userId);
 
     if (checkUserById.length === 0) {
-      const error = new Error("등록된 회원이 아닙니다.");
+      const error = new Error("등록된 유저가 아닙니다.");
       error.statusCode = 404;
       throw error;
     }
