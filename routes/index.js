@@ -6,7 +6,8 @@ router.get("/ping", (req, res) => {
   res.json({ message: "/ pong" });
 });
 
-const userRouter = require('./userRouter')
-router.use('/user',userRouter)
+const recordRouter = require("./recordRouter");
+router.use("/records", recordRouter);
+router.use("/user", userRouter);
 
 module.exports = router;
