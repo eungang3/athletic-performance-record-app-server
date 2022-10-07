@@ -89,7 +89,7 @@
 
 ## 📌 API DOCS
 
-**[🔗 API DOCS](https://charmed-skirt-18c.notion.site/3-api-da65b8473dee41daacea0ae879adc958)**
+**[🔗 API DOCS](https://atom-top-2e8.notion.site/3-api-65043206aa9e4d70a7371b4659610b11)**
 
 <br/>
 
