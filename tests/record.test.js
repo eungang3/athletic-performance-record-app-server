@@ -56,6 +56,14 @@ describe("Get Record", () => {
     await myDataSource.query(`SET FOREIGN_KEY_CHECKS = 1;`);
     await myDataSource.destroy();
   });
+  
+  test("SUCCESS: deleted record", async () => {
+    await request(app).delete("/records/1").expect(200);
+  });
+
+  test("FAILED: non-existing record", async () => {
+    await request(app).delete("/records/2").expect(404);
+  });
 
   test("SUCCESS: get user record", async () => {
     await request(app).get("/records/users/1").expect(200);
